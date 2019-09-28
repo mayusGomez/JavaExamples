@@ -1,18 +1,50 @@
 package com.gm.pcworld;
 
+/**
+ * This Class allow to create computers objects, each object must have a Moninor, KeyBoard and a Mouse.
+ */
+
 public class Computer {
 
+    /**
+     * computer identification
+     */
     private int computerId;
+    /**
+     * computer description
+     */
     private String name;
+    /**
+     * Monitor object to compound the computer
+     */
     private Monitor monitor;
+    /**
+     * Keyboard object to compound the computer
+     */
     private KeyBoard keyBoard;
+    /**
+     * Mouse object to compound the computer
+     */
     private Mouse mouse;
+    /**
+     * Control the number of computers created
+     */
     private static int computerCount;
 
+    /**
+     * Private constructor. Assign the computer identification and increment the counter.
+     */
     private Computer(){
         this.computerId = Computer.computerCount++;
     }
 
+    /**
+     * Public Contructor. receive the necessary attributes to build de computer object
+     * @param name Computer's description
+     * @param monitor Monitor Object
+     * @param keyBoard KeyBoard Object
+     * @param mouse Mouse Object
+     */
     public Computer(String name, Monitor monitor, KeyBoard keyBoard, Mouse mouse){
         this();
         this.name = name;

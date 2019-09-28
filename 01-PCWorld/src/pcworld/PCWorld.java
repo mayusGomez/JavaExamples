@@ -1,8 +1,17 @@
 package pcworld;
-
 import com.gm.pcworld.*;
 
+/**
+ * This Class implement the pcworld package, create some computers instances and make an order
+ */
+
+
 public class PCWorld {
+
+    /**
+     * Main execution
+     * @param args command line args
+     */
     public static void main(String[] args) {
         //Create Toshiba 1
         Mouse mouse1 = new Mouse("usb", "Toshiba");

@@ -22,6 +22,9 @@
                 <li>${customer.idCustomer} ${customer.name} ${customer.lastname} ${customer.email} ${customer.phone} ${customer.balance}</li>
                 </c:forEach>
         </ul>
+        
+        <jsp:include page="WEB-INF/pages/commons/footer.jsp"/>
+
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

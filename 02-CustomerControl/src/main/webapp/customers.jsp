@@ -14,18 +14,7 @@
         <title>Customers Control</title>
     </head>
     <body>
-        
-        <header id="main-header" class="py-2 bg-info text-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h1>
-                            <i class="fas fa-cog"></i>Customer Control
-                        </h1>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <jsp:include page="WEB-INF/pages/commons/header.jsp"/>
         
         <ul>
             <c:forEach var="customer" items="${customers}">

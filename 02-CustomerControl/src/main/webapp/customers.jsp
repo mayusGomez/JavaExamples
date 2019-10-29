@@ -1,4 +1,4 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,11 +17,7 @@
         <jsp:include page="WEB-INF/pages/commons/header.jsp"/>
         <jsp:include page="WEB-INF/pages/commons/navigationButtons.jsp"/>
         
-        <ul>
-            <c:forEach var="customer" items="${customers}">
-                <li>${customer.idCustomer} ${customer.name} ${customer.lastname} ${customer.email} ${customer.phone} ${customer.balance}</li>
-                </c:forEach>
-        </ul>
+        <jsp:include page="WEB-INF/pages/customer/customerList.jsp"/>
         
         <jsp:include page="WEB-INF/pages/commons/footer.jsp"/>
 

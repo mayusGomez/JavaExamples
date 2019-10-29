@@ -28,7 +28,17 @@ public class ServletControler extends HttpServlet {
         List<Customer> customers = customerDao.select();
         System.out.println("Customer:" + customers);
         request.setAttribute("customers", customers);
+        request.setAttribute("totalCustomers", customers.size());
+        request.setAttribute("totalBalance", this.totalBalance(customers));
         request.getRequestDispatcher("customers.jsp").forward(request, response);
+    }
+    
+    private double totalBalance(List<Customer> customers){
+        double totalBalance = 0;
+        for (Customer customer: customers){
+            totalBalance += customer.getBalance();
+        }
+        return totalBalance;
     }
 
 }

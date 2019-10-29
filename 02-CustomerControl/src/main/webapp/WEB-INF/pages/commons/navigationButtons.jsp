@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-3">
                 <a href="#" class="btn btn-primary btn-block"
-                   data-toogle="modal" data-target="#addModalClient">
+                   data-toggle="modal" data-target="#addModalClient">
                     <i class="fas fa-plus"></i>Add customer
                 </a>
             </div>

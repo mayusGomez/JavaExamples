@@ -19,9 +19,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="customer" items="${customers}">
+                        <c:forEach var="customer" items="${customers}" varStatus="status">
                             <tr>
-                                <td>${customer.idCustomer}</td>
+                                <!--<td>${customer.idCustomer}</td>-->
+                                <td>${status.count}</td>
                                 <td>${customer.name} ${customer.lastname}</td>
                                 <td> <fmt:formatNumber value="${customer.balance}" type="currency"/> </td>
                                 <td>
@@ -61,4 +62,6 @@
     </div>
 </section>
 
+<!-- add customer (modal) -->
+<jsp:include page="/WEB-INF/pages/customer/addCustomer.jsp"/>
 

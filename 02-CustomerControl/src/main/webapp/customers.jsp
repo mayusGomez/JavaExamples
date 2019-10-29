@@ -15,6 +15,7 @@
     </head>
     <body>
         <jsp:include page="WEB-INF/pages/commons/header.jsp"/>
+        <jsp:include page="WEB-INF/pages/commons/navigationButtons.jsp"/>
         
         <ul>
             <c:forEach var="customer" items="${customers}">

@@ -14,22 +14,27 @@ public class Connect {
     private static final String JDBC_USER="root";
     private static final String JDBC_PASSWORD="admin";
     
-    /*public static DataSource getDataSource(){
-        BasicDataSource ds = new BasicDataSource();
-        ds.setUrl(JDBC_URL);
-        ds.setUsername(JDBC_USER);
-        ds.setPassword(JDBC_PASSWORD);
-        ds.setInitialSize(10);
+    private static BasicDataSource ds;
+    
+    public static DataSource getDataSource(){
+        if (ds == null ){
+            ds = new BasicDataSource();
+            ds.setUrl(JDBC_URL);
+            ds.setUsername(JDBC_USER);
+            ds.setPassword(JDBC_PASSWORD);
+            ds.setInitialSize(10);
+        }
+        
         return ds;
     }
     
     public static Connection getConnection() throws SQLException{
         return getDataSource().getConnection();
-    }*/
-    
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
     }
+    
+    /*public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+    }*/
     
     public static void close(ResultSet rs){
         try {

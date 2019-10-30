@@ -21,8 +21,8 @@
                     <tbody>
                         <c:forEach var="customer" items="${customers}" varStatus="status">
                             <tr>
-                                <!--<td>${customer.idCustomer}</td>-->
-                                <td>${status.count}</td>
+                                <td>${customer.idCustomer}</td>
+                                <!--<td>${status.count}</td>-->
                                 <td>${customer.name} ${customer.lastname}</td>
                                 <td> <fmt:formatNumber value="${customer.balance}" type="currency"/> </td>
                                 <td>

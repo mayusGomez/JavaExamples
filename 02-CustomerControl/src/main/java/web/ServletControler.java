@@ -25,28 +25,38 @@ public class ServletControler extends HttpServlet {
             throws ServletException, IOException
     {
         
-        /*String action = request.getParameter("action");
+        String action = request.getParameter("action");
+        
         if (action != null) {
             switch (action) {
                 case "edit":
-                    this.editarCliente(request, response);
-                    break;
-                case "delete":
-                    this.eliminarCliente(request, response);
+                    this.customerEdit(request, response);
                     break;
                 default:
-                    this.accionDefault(request, response);
+                    this.defaultAction(request, response);
             }
-        } else {*/
+        } else {
             this.defaultAction(request, response);
-        //}
+        }
     }
+    
+    
+    private void customerEdit(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException{
+        int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
+        CustomerDao customerDao = new CustomerDaoJDBC();
+        Customer customer = customerDao.find(new Customer(idCustomer));
+        request.setAttribute("customer", customer);
+        String jspEdit = "/WEB-INF/pages/customer/editCustomer.jsp";
+        request.getRequestDispatcher(jspEdit).forward(request, response);
+    }
+            
     
     private void defaultAction(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CustomerDao customerDao = new CustomerDaoJDBC();
         List<Customer> customers = customerDao.select();
-        System.out.println("Customer:" + customers);
+        System.out.println("Customers:" + customers);
         /*request.setAttribute("customers", customers);
         request.setAttribute("totalCustomers", customers.size());
         request.setAttribute("totalBalance", this.totalBalance(customers));
@@ -54,11 +64,15 @@ public class ServletControler extends HttpServlet {
         */
         
         HttpSession session = request.getSession();
+        System.out.println("set att");
         session.setAttribute("customers", customers);
         session.setAttribute("totalCustomers", customers.size());
         session.setAttribute("totalBalance", this.totalBalance(customers));
+        System.out.println("redirect");
         response.sendRedirect("customers.jsp");
     }
+
+
     
     private double totalBalance(List<Customer> customers){
         double totalBalance = 0;
@@ -79,9 +93,11 @@ public class ServletControler extends HttpServlet {
                 case "insert":
                     this.customerInsert(request, response);
                     break;
-                /*case "modify":
-                    this.modificarCliente(request, response);
-                    break;*/
+                case "modify":
+                    this.customerModify(request, response);
+                    break;
+                case "delete":
+                    this.customerDelete(request, response);
                 default:
                     this.defaultAction(request, response);
             }
@@ -89,6 +105,54 @@ public class ServletControler extends HttpServlet {
             this.defaultAction(request, response);
         }
     }
+    
+    
+    private void customerModify(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException{
+        int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
+        String name = request.getParameter("name");
+        String lastname = request.getParameter("lastname");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String stringBalance = request.getParameter("balance");
+        
+        double balance = 0;
+        if (stringBalance != null && !"".equals(stringBalance)){
+            balance = Double.parseDouble(stringBalance);
+        }
+        
+        Customer customer = new Customer(idCustomer, name, lastname, email, phone, balance);
+        CustomerDao customerDao = new CustomerDaoJDBC();
+        
+        //Insert in DB
+        int modifiedRows = customerDao.update(customer);
+        System.out.println("modifiedRows = " + modifiedRows);
+
+        // Redirect
+        this.defaultAction(request, response);
+        
+    }
+    
+    private void customerDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int idCustomer = Integer.parseInt(request.getParameter("idCustomer"));
+              
+        Customer customer = new Customer(idCustomer);
+        CustomerDao customerDao = new CustomerDaoJDBC();
+        
+        //Insert in DB
+        int modifiedRows = customerDao.delete(customer);
+        System.out.println("delete Rows = " + modifiedRows);
+
+        List<Customer> customers = customerDao.select();
+        System.out.println("Customers:" + customers);
+        request.setAttribute("customers", customers);
+        request.setAttribute("totalCustomers", customers.size());
+        request.setAttribute("totalBalance", this.totalBalance(customers));
+        request.getRequestDispatcher("customers.jsp").forward(request, response);
+        
+    }
+    
     
     private void customerInsert(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -110,6 +174,7 @@ public class ServletControler extends HttpServlet {
         //Insert in DB
         int modifiedRows = customerDao.insert(customer);
         System.out.println("modifiedRows = " + modifiedRows);
+
 
         // Redirect
         this.defaultAction(request, response);
